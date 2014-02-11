@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211200039) do
+ActiveRecord::Schema.define(version: 20140211230217) do
+
+  create_table "bikes", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "station_id"
+  end
+
+  add_index "bikes", ["station_id"], name: "index_bikes_on_station_id", using: :btree
 
   create_table "stations", force: true do |t|
-    t.integer  "station_id"
     t.string   "name"
     t.decimal  "lat",        precision: 10, scale: 6
     t.decimal  "lng",        precision: 10, scale: 6

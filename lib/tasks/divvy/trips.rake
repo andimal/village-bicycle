@@ -1,3 +1,6 @@
+require 'csv'
+require 'chronic'
+
 namespace :divvy do
 
   desc "Import all the trips"
@@ -8,10 +11,13 @@ namespace :divvy do
 
     data.each do |row|
 
+      start_time = Chronic.parse(row[1])
+      stop_time = Chronic.parse(row[2])
+
       trip = Trip.new(
         trip_id: row[0],
-        start_time: row[1],
-        stop_time: row[2],
+        start_time: start_time,
+        stop_time: stop_time,
         bike_id: row[3],
         trip_duration: row[4],
         from_station_id: row[5],
@@ -21,7 +27,7 @@ namespace :divvy do
         birth_year: row[11]
       )
 
-      if trip.save!
+      if trip.save
         puts "Saved trip #{trip.trip_id}"
       else
         puts "Could not save trip..."
@@ -29,5 +35,4 @@ namespace :divvy do
 
     end
   end
-
 end

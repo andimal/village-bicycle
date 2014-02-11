@@ -14,12 +14,14 @@ namespace :divvy do
       start_time = Chronic.parse(row[1])
       stop_time = Chronic.parse(row[2])
 
+      duration = row[4].to_i
+
       trip = Trip.new(
         trip_id: row[0],
         start_time: start_time,
         stop_time: stop_time,
         bike_id: row[3],
-        trip_duration: row[4],
+        trip_duration: duration,
         from_station_id: row[5],
         to_station_id: row[7],
         user_type: row[9],

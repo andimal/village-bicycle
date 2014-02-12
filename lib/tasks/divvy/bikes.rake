@@ -3,9 +3,9 @@ namespace :divvy do
   desc "Create bikes from trips"
   task bikes: :environment do
 
-    Trip.each do |trip|
+    Trip.all.each do |trip|
 
-      existing_bike = Bike.where(id: trip.bike_id).first rescue nil
+      existing_bike = Bike.find(trip.bike_id) rescue nil
 
       unless existing_bike
 

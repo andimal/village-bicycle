@@ -11,33 +11,28 @@ namespace :divvy do
 
     data.each do |row|
 
-      existing_trip = Trip.where(trip_id: row[0]).first rescue nil
+      start_time = Chronic.parse(row[1])
+      stop_time = Chronic.parse(row[2])
 
-      unless existing_trip
+      duration = row[4].to_i
 
-        start_time = Chronic.parse(row[1])
-        stop_time = Chronic.parse(row[2])
+      new_trip = Trip.new(
+        trip_id: row[0],
+        start_time: start_time,
+        stop_time: stop_time,
+        bike_id: row[3],
+        trip_duration: duration,
+        from_station_id: row[5],
+        to_station_id: row[7],
+        user_type: row[9],
+        gender: row[10],
+        birth_year: row[11]
+      )
 
-        duration = row[4].to_i
-
-        new_trip = Trip.new(
-          trip_id: row[0],
-          start_time: start_time,
-          stop_time: stop_time,
-          bike_id: row[3],
-          trip_duration: duration,
-          from_station_id: row[5],
-          to_station_id: row[7],
-          user_type: row[9],
-          gender: row[10],
-          birth_year: row[11]
-        )
-
-        if new_trip.save
-          puts "Saved trip #{new_trip.trip_id}"
-        else
-          puts "Could not save trip..."
-        end
+      if new_trip.save
+        puts "Saved trip #{new_trip.trip_id}"
+      else
+        puts "Could not save trip..."
       end
     end
   end

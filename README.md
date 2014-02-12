@@ -1,8 +1,10 @@
 Village Bicycle
 ===============
 
-1. Download the Divvy Dataset from http://divvybikes.com/datachallenge
-2. Save the CSV files into `lib/assets/csv` (make sure filenames are `stations.csv` and `trips.csv`)
-3. Import all stations with `rake divvy:stations`
-4. Attach station IDs to stations with `rake divvy:station_ids`
-5. Import all trips with `rake divvy:trips`
+Playing around with some of the data that Divvy released on 2/11/13. Associations for station:trip and trip:bike have been set up in the database dump included.
+
+1. `git clone git@github.com:lrdiv/village-bicycle.git` (Or fork it)
+2. `bundle install`
+3. `rake db:migrate`
+4. **[Download and import this database dump.](https://www.dropbox.com/s/rnbvno333xblp58/divvy_development_2014-02-12.sql)**
+5. Get your data on, homie.

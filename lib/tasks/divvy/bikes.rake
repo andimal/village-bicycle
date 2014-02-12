@@ -8,6 +8,7 @@ namespace :divvy do
     Trip.all.each do |trip|
 
       counter += 1
+      puts "Setting temporary ID"
       trip.update_attribute(:id, counter)
 
       existing_bike = Bike.find(trip.bike_id) rescue nil
@@ -19,8 +20,9 @@ namespace :divvy do
           station_id: trip.from_station_id
         )
 
-        if bike.save
-          puts "Created bike #{bike.bike_id}"
+        if bike.save!
+          puts "Created bike #{bike.id}"
+          puts "Setting correct trip ID"
           trip.update_attribute(:id, trip.trip_id)
 
         else

@@ -1,7 +1,7 @@
 class Trip < ActiveRecord::Base
 
-  belongs_to :from_station, class_name: "Station", foreign_key: :from_station_id
-  belongs_to :to_station, class_name: "Station", foreign_key: :to_station_id
+  belongs_to :from_station, class_name: "Station", foreign_key: :from_station_id, counter_cache: :from_trips_count
+  belongs_to :to_station, class_name: "Station", foreign_key: :to_station_id, counter_cache: :to_trips_count
   belongs_to :bike, counter_cache: true
 
   scope :by_duration_asc, -> { order('trip_duration ASC') }

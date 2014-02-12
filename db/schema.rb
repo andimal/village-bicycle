@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212163558) do
+ActiveRecord::Schema.define(version: 20140212170717) do
 
   create_table "bikes", force: true do |t|
     t.datetime "created_at"
@@ -21,11 +21,13 @@ ActiveRecord::Schema.define(version: 20140212163558) do
 
   create_table "stations", force: true do |t|
     t.string   "name"
-    t.decimal  "lat",        precision: 10, scale: 6
-    t.decimal  "lng",        precision: 10, scale: 6
+    t.decimal  "lat",              precision: 10, scale: 6
+    t.decimal  "lng",              precision: 10, scale: 6
     t.integer  "capacity"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "to_trips_count"
+    t.integer  "from_trips_count"
   end
 
   create_table "trips", force: true do |t|

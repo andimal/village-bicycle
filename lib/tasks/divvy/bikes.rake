@@ -19,6 +19,8 @@ namespace :divvy do
         else
           puts "Couldn't save bike #{trip.bike_id}"
         end
+      else
+        puts "Bike exists... Skipping..."
       end
     end
   end

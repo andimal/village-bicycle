@@ -3,7 +3,12 @@ namespace :divvy do
   desc "Create bikes from trips"
   task bikes: :environment do
 
+    counter = 2000000
+
     Trip.all.each do |trip|
+
+      counter += 1
+      trip.update_attribute(:id, counter)
 
       existing_bike = Bike.find(trip.bike_id) rescue nil
 
@@ -16,6 +21,8 @@ namespace :divvy do
 
         if bike.save
           puts "Created bike #{bike.bike_id}"
+          trip.update_attribute(:id, trip.trip_id)
+
         else
           puts "Couldn't save bike #{trip.bike_id}"
         end

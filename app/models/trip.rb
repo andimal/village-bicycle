@@ -14,4 +14,9 @@ class Trip < ActiveRecord::Base
   def self.shortest_trip
     self.by_duration_asc.first
   end
+
+  def set_real_id
+    self.id = self.trip_id
+    self.save(validate: false)
+  end
 end

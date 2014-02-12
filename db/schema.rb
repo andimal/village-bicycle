@@ -11,15 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140211230217) do
+ActiveRecord::Schema.define(version: 20140212163558) do
 
   create_table "bikes", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "station_id"
+    t.integer  "trips_count"
   end
-
-  add_index "bikes", ["station_id"], name: "index_bikes_on_station_id", using: :btree
 
   create_table "stations", force: true do |t|
     t.string   "name"
@@ -31,7 +29,6 @@ ActiveRecord::Schema.define(version: 20140211230217) do
   end
 
   create_table "trips", force: true do |t|
-    t.integer  "trip_id"
     t.datetime "start_time"
     t.datetime "stop_time"
     t.integer  "bike_id"

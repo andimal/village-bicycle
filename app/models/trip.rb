@@ -10,6 +10,9 @@ class Trip < ActiveRecord::Base
   scope :by_start_time_asc, -> { order('start_time ASC') }
   scope :by_start_time_desc, -> { order('start_time DESC') }
 
+  scope :daytime_trips, -> { where('extract(hour from start_time) >= ?', 6) }
+  scope :nighttime_trips, -> { where('extract(hour from start_time) < ?', 6) }
+
   def self.longest_trip
     self.by_duration_desc.first
   end
@@ -17,9 +20,5 @@ class Trip < ActiveRecord::Base
   def self.shortest_trip
     self.by_duration_asc.first
   end
-
-  def set_real_id
-    self.id = self.trip_id
-    self.save(validate: false)
-  end
+  
 end

@@ -1,4 +1,4 @@
-Village Bicycle
+Village Bicycle (WIP)
 ===============
 
 Playing around with some of the data that Divvy released on 2/11/13. Associations for station:trip and trip:bike have been set up in the database dump included.

@@ -1,0 +1,10 @@
+!!!
+%html
+  %head
+    %title Divvy
+    = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
+    = csrf_meta_tags
+  %body
+    = yield
+    = javascript_include_tag "http://maps.googleapis.com/maps/api/js?sensor=false"
+    = javascript_include_tag "application"

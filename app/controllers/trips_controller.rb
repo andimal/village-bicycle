@@ -1,4 +1,4 @@
-class TripsController < ActionController::Base
+class TripsController < ApplicationController
   
   def index
     @trip = Trip.first

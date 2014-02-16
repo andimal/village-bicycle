@@ -16,3 +16,5 @@
 /tmp
 
 /lib/assets/csv/*
+
+.DS_Store

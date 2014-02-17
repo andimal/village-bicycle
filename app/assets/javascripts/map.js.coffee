@@ -62,11 +62,11 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
       $map_night_inner.css
         opacity : 1
 
-  adjust_map_display( current_hour * ratio )
-
   $('.map-slider').slider
-    value : current_hour * ratio
-    slide : ( event, ui ) ->
+    create : ->
+      $(this).slider 'value', current_hour * ratio
+      adjust_map_display( current_hour * ratio )
+    slide  : ( event, ui ) ->
       adjust_map_display( ui.value )
 
   google.maps.event.addListener map_night, 'center_changed', ->

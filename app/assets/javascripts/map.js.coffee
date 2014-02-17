@@ -33,7 +33,7 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
   transition_duration = 1
   ratio               = 100 / 24
   current_map         = 'night'
-
+  current_hour        = $('.map-slider').attr('data-hour')
   change_values = [
     (sunrise - transition_duration) * ratio,
     (sunrise + transition_duration) * ratio,
@@ -41,29 +41,33 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
     (sunset + transition_duration) * ratio 
   ]
 
-  console.log change_values
+  adjust_map_display = (value) ->
+    if value < change_values[0]
+      $map_night_inner.css
+        opacity : 1
+
+    else if value > change_values[0] and value < change_values[1]
+      $map_night_inner.css
+        opacity : 1 - ( ( value - change_values[0] ) / ( change_values[0] - change_values[1] ) * -1 )
+
+    else if value > change_values[1] and value < change_values[2]
+      $map_night_inner.css
+        opacity : 0
+
+    else if value > change_values[2] and value < change_values[3]
+      $map_night_inner.css
+        opacity : ( ( value - change_values[2] ) / ( change_values[2] - change_values[3] ) * -1 )
+
+    else if value > change_values[3]
+      $map_night_inner.css
+        opacity : 1
+
+  adjust_map_display( current_hour * ratio )
 
   $('.map-slider').slider
+    value : current_hour * ratio
     slide : ( event, ui ) ->
-      if ui.value < change_values[0]
-        $map_night_inner.css
-          opacity : 1
-
-      else if ui.value > change_values[0] and ui.value < change_values[1]
-        $map_night_inner.css
-          opacity : 1 - ( ( ui.value - change_values[0] ) / ( change_values[0] - change_values[1] ) * -1 )
-
-      else if ui.value > change_values[1] and ui.value < change_values[2]
-        $map_night_inner.css
-          opacity : 0
-
-      else if ui.value > change_values[2] and ui.value < change_values[3]
-        $map_night_inner.css
-          opacity : ( ( ui.value - change_values[2] ) / ( change_values[2] - change_values[3] ) * -1 )
-
-      else if ui.value > change_values[3]
-        $map_night_inner.css
-          opacity : 1
+      adjust_map_display( ui.value )
 
   google.maps.event.addListener map_night, 'center_changed', ->
     map_day.panTo map_night.getCenter()

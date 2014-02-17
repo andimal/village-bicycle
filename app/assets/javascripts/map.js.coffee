@@ -27,11 +27,43 @@ map_day   = new google.maps.Map(document.getElementById('map-day'), opts_map_day
 map_night = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
 
 google.maps.event.addListener map_night, 'tilesloaded', ->
-  $map_night_inner = $('#map-night .gm-style div').first()
+  $map_night_inner    = $('#map-night .gm-style div').first()
+  sunrise             = 7
+  sunset              = 18
+  transition_duration = 1
+  ratio               = 100 / 24
+  current_map         = 'night'
+
+  change_values = [
+    (sunrise - transition_duration) * ratio,
+    (sunrise + transition_duration) * ratio,
+    (sunset - transition_duration) * ratio,
+    (sunset + transition_duration) * ratio 
+  ]
+
+  console.log change_values
+
   $('.map-slider').slider
-    slide: ( event, ui ) ->
-      $map_night_inner.css
-        opacity : ui.value / 100
+    slide : ( event, ui ) ->
+      if ui.value < change_values[0]
+        $map_night_inner.css
+          opacity : 1
+
+      else if ui.value > change_values[0] and ui.value < change_values[1]
+        $map_night_inner.css
+          opacity : 1 - ( ( ui.value - change_values[0] ) / ( change_values[0] - change_values[1] ) * -1 )
+
+      else if ui.value > change_values[1] and ui.value < change_values[2]
+        $map_night_inner.css
+          opacity : 0
+
+      else if ui.value > change_values[2] and ui.value < change_values[3]
+        $map_night_inner.css
+          opacity : ( ( ui.value - change_values[2] ) / ( change_values[2] - change_values[3] ) * -1 )
+
+      else if ui.value > change_values[3]
+        $map_night_inner.css
+          opacity : 1
 
   google.maps.event.addListener map_night, 'center_changed', ->
     map_day.panTo map_night.getCenter()

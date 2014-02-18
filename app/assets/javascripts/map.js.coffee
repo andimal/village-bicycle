@@ -26,6 +26,11 @@ opts_map_night =
 map_day   = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
 map_night = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
 
+point_array = new google.maps.MVCArray(trip_data_0)
+
+heatmap = new google.maps.visualization.HeatmapLayer(data: point_array)
+heatmap.setMap map_night
+
 google.maps.event.addListener map_night, 'tilesloaded', ->
   $map_night_inner    = $('#map-night .gm-style div').first()
   sunrise             = 7

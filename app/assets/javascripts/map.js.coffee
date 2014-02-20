@@ -26,10 +26,35 @@ opts_map_night =
 map_day   = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
 map_night = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
 
-point_array = new google.maps.MVCArray(trip_data_0)
+directionsService = new google.maps.DirectionsService()
+directionsDisplay = new google.maps.DirectionsRenderer()
+directionsDisplay.setMap(map_night)
+directions_points_array = []
 
-heatmap = new google.maps.visualization.HeatmapLayer(data: point_array)
-heatmap.setMap map_night
+decoded = google.maps.geometry.encoding.decodePath( "cjs~Frl|uOd@??_HkJHgJHqCN]@oGF@aAKmCEsKAi@aDB?f@HfI{H~FcErCWTaBpAy@r@a@Pq@?SABvAAbEe@?{BB_DHmEB[E_DBy@H" )
+console.log decoded
+
+# i       = 0
+# loaded  = 0
+# while i < trip_data.length / 2
+#   start = trip_data[i * 2]
+#   end = trip_data[(i * 2) + 1]
+#   request =
+#     origin: start
+#     destination: end
+#     travelMode: google.maps.TravelMode.BICYCLING
+
+#   directionsService.route request, (response, status) ->
+#     console.log status
+#     directions_points_array = directions_points_array.concat(response.routes[0].overview_path)
+#     loaded++
+#     if loaded is trip_data.length / 2
+#       # console.log JSON.stringify( directions_points_array )
+#       point_array = new google.maps.MVCArray( directions_points_array )
+#       heatmap = new google.maps.visualization.HeatmapLayer(data: point_array)
+#       heatmap.set('radius', 5)
+#       heatmap.setMap map_night
+#   i++
 
 google.maps.event.addListener map_night, 'tilesloaded', ->
   $map_night_inner    = $('#map-night .gm-style div').first()

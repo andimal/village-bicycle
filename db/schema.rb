@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140212170717) do
+ActiveRecord::Schema.define(version: 20140220065222) do
 
   create_table "bikes", force: true do |t|
     t.datetime "created_at"
@@ -34,7 +34,7 @@ ActiveRecord::Schema.define(version: 20140212170717) do
     t.datetime "start_time"
     t.datetime "stop_time"
     t.integer  "bike_id"
-    t.integer  "trip_duration",   limit: 8
+    t.integer  "trip_duration",     limit: 8
     t.integer  "from_station_id"
     t.integer  "to_station_id"
     t.string   "user_type"
@@ -42,6 +42,7 @@ ActiveRecord::Schema.define(version: 20140212170717) do
     t.integer  "birth_year"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "directions_points"
   end
 
 end

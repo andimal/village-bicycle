@@ -1,13 +1,16 @@
 -# = @trip.inspect
 
--# %script
--#   var trip_data = [
--#   - @trips.each do |trip|
--#     = "new google.maps.LatLng(#{trip.from_station.lat}, #{trip.from_station.lng}),"
--#     = "new google.maps.LatLng(#{trip.to_station.lat}, #{trip.to_station.lng}),"
--#   ];
+-# = @points
+= Trip.first.set_directions_points
+
+%script
+  var trip_data = [
+  - @trips.each do |trip|
+    = "new google.maps.LatLng(#{trip.from_station.lat}, #{trip.from_station.lng}),"
+    = "new google.maps.LatLng(#{trip.to_station.lat}, #{trip.to_station.lng}),"
+  ];
 -# = render file: "trips/hourly_trips/hour_11"
-= render file: "trips/hourly_trips/hour_0"
+-# = render file: "trips/hourly_trips/hour_0"
 
 %section.map-container
   #map-day.map.map-day

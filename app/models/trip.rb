@@ -20,5 +20,12 @@ class Trip < ActiveRecord::Base
   def self.shortest_trip
     self.by_duration_asc.first
   end
+
+  def set_directions_points
+    require 'net/http'
+    directions = JSON.parse Net::HTTP.get(URI.parse("http://maps.googleapis.com/maps/api/directions/json?origin=#{self.from_station.lat},#{self.from_station.lng}&destination=#{self.to_station.lat},#{self.to_station.lng}&sensor=false&mode=bicycling"))
+    self.directions_points = directions['routes'].first['overview_polyline']['points']
+    self.save
+  end
   
 end

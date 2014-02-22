@@ -18,3 +18,4 @@
 /lib/assets/csv/*
 
 .DS_Store
+app/views/trips/static-data/

@@ -21,6 +21,29 @@ class Trip < ActiveRecord::Base
     self.by_duration_asc.first
   end
 
+  def self.write_hourly_data
+    (0..23).each do |hour|
+      if hour < 10
+        hour = "0#{hour}"
+      end
+
+      out_file = File.new("app/views/trips/static-data/trip-data-#{hour}.html", "w")
+      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{hour}", "#{hour.to_i + 1}" )
+
+      out_text = "var trip_data_#{hour} = ["
+      trips.each do |trip|
+        if trip.directions_points.present?
+          directions = trip.directions_points.gsub!("\\", "\\\\\\") 
+          out_text = "#{out_text}'#{directions ? directions : trip.directions_points}',"
+        end
+      end
+
+      out_text = "#{out_text}];"
+      out_file.puts(out_text)
+      out_file.close
+    end
+  end
+
   def set_directions_points
     require 'net/http'
     directions = JSON.parse Net::HTTP.get(URI.parse("http://maps.googleapis.com/maps/api/directions/json?origin=#{self.from_station.lat},#{self.from_station.lng}&destination=#{self.to_station.lat},#{self.to_station.lng}&sensor=false&mode=bicycling"))

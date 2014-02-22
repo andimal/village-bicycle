@@ -1,7 +1,7 @@
 class TripsController < ApplicationController
   
   def index
-    @trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', 4, 5 )
+    @trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', 13, 14 )
     # @trips = Trip.take(1000)
     @trip = Trip.first
 

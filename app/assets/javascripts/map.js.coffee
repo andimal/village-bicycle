@@ -25,16 +25,25 @@ opts_map_night =
 
 map_day   = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
 map_night = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
-map_0 = new google.maps.Map(document.getElementById('map-0'), opts_map_night)
-map_4 = new google.maps.Map(document.getElementById('map-4'), opts_map_night)
-map_14 = new google.maps.Map(document.getElementById('map-14'), opts_map_night)
-map_20 = new google.maps.Map(document.getElementById('map-20'), opts_map_night)
+
+# map_00 = new google.maps.Map(document.getElementById('map-00'), opts_map_night)
+# map_01 = new google.maps.Map(document.getElementById('map-01'), opts_map_night)
+# map_02 = new google.maps.Map(document.getElementById('map-02'), opts_map_night)
+# map_03 = new google.maps.Map(document.getElementById('map-03'), opts_map_night)
+# map_04 = new google.maps.Map(document.getElementById('map-04'), opts_map_night)
+# map_05 = new google.maps.Map(document.getElementById('map-05'), opts_map_night)
+# map_11 = new google.maps.Map(document.getElementById('map-11'), opts_map_night)
+# map_12 = new google.maps.Map(document.getElementById('map-12'), opts_map_night)
+# map_13 = new google.maps.Map(document.getElementById('map-13'), opts_map_night)
+# map_14 = new google.maps.Map(document.getElementById('map-14'), opts_map_night)
+# map_20 = new google.maps.Map(document.getElementById('map-20'), opts_map_night)
 
 # directionsService = new google.maps.DirectionsService()
 # directionsDisplay = new google.maps.DirectionsRenderer()
 # directionsDisplay.setMap(map_night)
 
 make_heatmap = (trip_data, map) ->
+  new_map = new google.maps.Map(map, opts_map_night)
   directions_points_array = []
 
   $.each trip_data, ->
@@ -44,14 +53,21 @@ make_heatmap = (trip_data, map) ->
   point_array = new google.maps.MVCArray( directions_points_array )
   heatmap = new google.maps.visualization.HeatmapLayer(data: point_array)
   heatmap.set('radius', 7)
-  heatmap.setMap map
+  heatmap.setMap new_map
 
 directions_points_array = []
 
-make_heatmap(trip_data_20, map_0)
-make_heatmap(trip_data_4, map_4)
-make_heatmap(trip_data_14, map_14)
-make_heatmap(trip_data_20, map_20)
+make_heatmap(trip_data_00, $('.map-00')[0] )
+# make_heatmap(trip_data_01, map_01)
+# make_heatmap(trip_data_02, map_02)
+# make_heatmap(trip_data_03, map_03)
+# make_heatmap(trip_data_04, map_04)
+# make_heatmap(trip_data_05, map_05)
+# make_heatmap(trip_data_11, map_11)
+# make_heatmap(trip_data_12, map_12)
+# make_heatmap(trip_data_13, map_13)
+# make_heatmap(trip_data_14, map_14)
+# make_heatmap(trip_data_20, map_20)
 
 # decoded = google.maps.geometry.encoding.decodePath( "cjs~Frl|uOd@??_HkJHgJHqCN]@oGF@aAKmCEsKAi@aDB?f@HfI{H~FcErCWTaBpAy@r@a@Pq@?SABvAAbEe@?{BB_DHmEB[E_DBy@H" )
 # console.log decoded

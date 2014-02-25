@@ -4,11 +4,11 @@
 -# = Trip.first.set_directions_points
 
 %script
-  - (0..23).each do |hour|
-    - if hour < 10
-      - hour = "0#{hour}"
+  / - (0..23).each do |hour|
+  /   - if hour < 10
+  /     - hour = "0#{hour}"
   
-    = render file: "trips/static-data/trip-data-#{hour}"
+  /   = render file: "trips/static-data/trip-data-#{hour}"
 
   / var trip_data = [
   / - @trips.each do |trip|
@@ -22,11 +22,11 @@
   #map-day.map.map-day
   #map-night.map.map-night
 
-  #map-00.map.heatmap.map-00.current-heatmap
-  - (1..23).each do |hour|
-    - if hour < 10
-      - hour = "0#{hour}"
-    .map.heatmap{id: "map-#{hour}", class: "map-#{hour}"}
+  / #map-00.map.heatmap.map-00.current-heatmap
+  / - (1..23).each do |hour|
+  /   - if hour < 10
+  /     - hour = "0#{hour}"
+  /   .map.heatmap{id: "map-#{hour}", class: "map-#{hour}"}
 
   .map-slider{data: {hour: @current_hour}}
 

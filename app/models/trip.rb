@@ -44,6 +44,32 @@ class Trip < ActiveRecord::Base
     end
   end
 
+  def self.write_hourly_duration
+    out_file = File.new("app/views/trips/static-data/trip-duration.html", "w")
+    out_text = "var trip_duration = ["
+
+    (0..23).each do |hour|
+      if hour < 10
+        hour = "0#{hour}"
+      end
+
+      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{hour}", "#{hour.to_i + 1}" )
+      trip_duration = 0
+      
+      trips.each do |trip|
+        trip_duration += trip.trip_duration
+      end
+
+      out_text = "#{out_text}#{trip_duration / 60},"
+
+    end
+
+    out_text = "#{out_text}];"
+    out_file.puts(out_text)
+    out_file.close
+
+  end
+
   def set_directions_points
     require 'net/http'
     directions = JSON.parse Net::HTTP.get(URI.parse("http://maps.googleapis.com/maps/api/directions/json?origin=#{self.from_station.lat},#{self.from_station.lng}&destination=#{self.to_station.lat},#{self.to_station.lng}&sensor=false&mode=bicycling"))

@@ -57,7 +57,7 @@ make_heatmap = (trip_data, map) ->
 
 directions_points_array = []
 
-make_heatmap(trip_data_00, $('.map-00')[0] )
+# make_heatmap(trip_data_00, $('.map-00')[0] )
 # make_heatmap(trip_data_01, map_01)
 # make_heatmap(trip_data_02, map_02)
 # make_heatmap(trip_data_03, map_03)

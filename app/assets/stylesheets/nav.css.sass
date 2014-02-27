@@ -1,0 +1,30 @@
+$blue : #20B8DF
+
+nav
+  position: relative
+  z-index: 2
+  background: $blue
+  padding: 20px 0
+
+  .ui-widget-content
+    border-color: transparent
+    background: #296E8F
+    height: 10px
+    border-radius: 3px
+
+  .ui-slider
+    .ui-slider-handle
+      border-radius: 20px
+      background: white
+      width: 17px
+      height: 17px
+      border: 2px solid lighten($blue, 10%)
+      cursor: pointer
+      outline: none
+
+      &.ui-state-active
+        background: darken(white, 10%)
+
+.map-slider
+  width: 80%
+  margin: 0 auto

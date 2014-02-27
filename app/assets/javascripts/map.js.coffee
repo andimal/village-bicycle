@@ -135,6 +135,9 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
       $(this).slider 'value', current_hour * ratio
       adjust_map_display( current_hour * ratio )
     slide  : ( event, ui ) ->
+      if !$('.show-chart').length
+        $('.chart').addClass('show-chart')
+
       adjust_map_display( ui.value )
       $current = $('.current-heatmap')
       $current.removeClass('current-heatmap')
@@ -142,6 +145,8 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
         $current.next().addClass('current-heatmap')
       else
         $('.heatmap:first').addClass('current-heatmap')
+    stop  : ->
+      $('.chart').removeClass('show-chart')
 
   google.maps.event.addListener map_night, 'center_changed', ->
     map_day.panTo map_night.getCenter()

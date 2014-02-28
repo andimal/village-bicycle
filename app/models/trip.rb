@@ -53,7 +53,12 @@ class Trip < ActiveRecord::Base
         hour = "0#{hour}"
       end
 
-      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{hour}", "#{hour.to_i + 1}" )
+      adjusted_time = hour.to_i + 5
+      if adjusted_time > 23
+        adjusted_time = adjusted_time - 24
+      end
+
+      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{adjusted_time}", "#{adjusted_time + 1}" )
       trip_duration = 0
       
       trips.each do |trip|

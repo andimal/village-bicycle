@@ -135,6 +135,18 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
       $(this).slider 'value', current_hour * ratio
       adjust_map_display( current_hour * ratio )
     slide  : ( event, ui ) ->
+      current_section = window.chart_points[ parseInt(ui.value / 100 * 24, 10) ]
+      console.log current_section
+      $('.chart-point').css
+        top: current_section.y - ( $('.chart-point').outerHeight() / 2 )
+        left: current_section.x - ( $('.chart-point').outerWidth() / 2 )
+
+      $('.chart-caption')
+        .css
+          top: current_section.y - $('.chart-caption').outerHeight() - 40
+          left: current_section.x - ( $('.chart-caption').outerWidth() / 2 )
+        .find('h4').text("#{current_section.value} hours")
+
       if !$('.show-chart').length
         $('.chart').addClass('show-chart')
 

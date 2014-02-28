@@ -6,8 +6,26 @@
   height: 300px
   opacity: 0
   transition: all 0.2s ease-in-out
+  // 
+  // opacity: 1
+  // z-index: 2
 
 .show-chart
   z-index: 2
   opacity: 1
   bottom: 0
+
+.chart-point
+  position: absolute
+  z-index: 3
+  width: 20px
+  height: 20px
+  border-radius: 20px
+  background: darken($blue, 10%)
+
+.chart-caption
+  position: absolute
+  z-index: 3
+  background: white
+  border-radius: 4px
+  padding: 20px

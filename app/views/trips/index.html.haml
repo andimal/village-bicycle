@@ -20,7 +20,9 @@
 -# = render file: "trips/hourly_trips/hour_0"
 
 %nav
-  .map-slider{data: {hour: @current_hour}}
+  .nav-actions
+    .divvy-logo.icon d
+    .map-slider{data: {hour: @current_hour}}
 
 %section.map-container
   #map-day.map.map-day

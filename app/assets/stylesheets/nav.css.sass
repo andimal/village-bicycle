@@ -1,18 +1,32 @@
-$blue : #20B8DF
+$blue : #3CB6E3
 
 nav
   position: relative
   z-index: 2
   background: $blue
-  padding: 20px 0
+  padding: 16px 0 12px
+  border-bottom: #46C1F0 solid 4px
+
+.nav-actions
+  @extend .group
+  width: 80%
+  margin: 0 auto
+
+  .divvy-logo
+    float: left
+    width: 5%
+    color: white
+    font-size: 20px
+    padding-top: 5px
 
   .ui-widget-content
+    float: left
     border-color: transparent
     background: #296E8F
-    width: 80%
-    height: 10px
-    border-radius: 3px
-    margin: 10px auto
+    width: 95%
+    height: 12px
+    border-radius: 5px
+    margin: 10px 0
 
     &:before
       content: ""
@@ -22,15 +36,15 @@ nav
       width: 100%
       height: 100%
       border-radius: 3px
-      border-top: 2px solid rgba(white, 0.3)
+      // border-top: 2px solid rgba(white, 0.3)
 
   .ui-slider
     .ui-slider-handle
       border-radius: 20px
       background: white
-      width: 17px
-      height: 17px
-      border: 2px solid lighten($blue, 10%)
+      width: 19px
+      height: 19px
+      border: 2px solid #3CB6E3
       cursor: pointer
       outline: none
 

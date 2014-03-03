@@ -27,4 +27,18 @@ class Station < ActiveRecord::Base
     self.to_trips_asc.first
   end
 
+  def self.write_static_data
+    out_file = File.new("app/views/trips/static-data/station-data.html", "w")
+    stations = Station.from_trips_asc
+
+    out_text = "var station_data = ["
+    stations.each do |station|
+      out_text = "#{out_text}{\"name\": \"#{station.name}\", \"lat\": #{station.lat}, \"lng\": #{station.lng}, \"capacity\": #{station.capacity}, \"from_trips_count\": #{station.from_trips_count}},"
+    end
+
+    out_text = "#{out_text}];"
+    out_file.puts(out_text)
+    out_file.close
+  end
+
 end

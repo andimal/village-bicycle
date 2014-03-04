@@ -63,7 +63,7 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
 
 
 $(window).load ->
-  $.getScript 'assets/static-data.js', ->
+  $.getScript 'static-data.js', ->
     window.make_chart()
 
     $map_night_inner    = $('#map-night .gm-style div').first()

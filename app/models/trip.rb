@@ -27,8 +27,13 @@ class Trip < ActiveRecord::Base
         hour = "0#{hour}"
       end
 
-      out_file = File.new("app/views/trips/static-data/trip-data-#{hour}.html", "w")
-      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{hour}", "#{hour.to_i + 1}" )
+      adjusted_time = hour.to_i + 5
+      if adjusted_time > 23
+        adjusted_time = adjusted_time - 24
+      end
+
+      out_file = File.new("app/assets/javascripts/static-data/trip-data-#{hour}.js", "w")
+      trips = Trip.where( 'HOUR( start_time ) >= ? AND HOUR( start_time ) < ?', "#{adjusted_time}", "#{adjusted_time + 1}" )
 
       out_text = "var trip_data_#{hour} = ["
       trips.each do |trip|
@@ -45,7 +50,7 @@ class Trip < ActiveRecord::Base
   end
 
   def self.write_hourly_duration
-    out_file = File.new("app/views/trips/static-data/trip-duration.html", "w")
+    out_file = File.new("app/assets/javascripts/static-data/trip-duration.js", "w")
     out_text = "var trip_duration = ["
 
     (0..23).each do |hour|

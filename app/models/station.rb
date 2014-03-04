@@ -28,7 +28,7 @@ class Station < ActiveRecord::Base
   end
 
   def self.write_static_data
-    out_file = File.new("app/views/trips/static-data/station-data.html", "w")
+    out_file = File.new("app/assets/javascripts/static-data/station-data.js", "w")
     stations = Station.from_trips_asc
 
     out_text = "var station_data = ["

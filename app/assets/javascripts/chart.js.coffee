@@ -1,4 +1,4 @@
-$ ->
+window.make_chart = ->
   chart_width       = $('.chart').outerWidth()
   chart_height      = $('.chart').outerHeight()
   width_increments  = $(window).outerWidth() / 12
@@ -15,5 +15,3 @@ $ ->
   window.chart_points = []
   l.each ->
     window.chart_points.push(this)
-
-  console.log window.chart_points

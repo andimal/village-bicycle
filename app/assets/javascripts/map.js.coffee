@@ -1,35 +1,55 @@
-zoom        = 12
-center      = new google.maps.LatLng(41.886407,-87.6576544)
-scrollwheel = false
+zoom              = 12
+center            = new google.maps.LatLng(41.886407,-87.6576544)
+scrollwheel       = false
+gradient_array_1  = ['rgba(0,255,0,0)']
+gradient_array_2  = ['rgba(0,0,255,0)']
 
 opts_map_day =
-  zoom        : zoom
-  center      : center
-  mapTypeId   : google.maps.MapTypeId.ROADMAP
-  scrollwheel : scrollwheel
-  styles      : [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
-  disableDefaultUI: true
+  zoom              : zoom
+  center            : center
+  mapTypeId         : google.maps.MapTypeId.ROADMAP
+  scrollwheel       : scrollwheel
+  draggable         : false
+  styles            : [{"featureType":"water","stylers":[{"visibility":"on"},{"color":"#acbcc9"}]},{"featureType":"landscape","stylers":[{"color":"#f2e5d4"}]},{"featureType":"road.highway","elementType":"geometry","stylers":[{"color":"#c5c6c6"}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#e4d7c6"}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#fbfaf7"}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#c5dac6"}]},{"featureType":"administrative","stylers":[{"visibility":"on"},{"lightness":33}]},{"featureType":"road"},{"featureType":"poi.park","elementType":"labels","stylers":[{"visibility":"on"},{"lightness":20}]},{},{"featureType":"road","stylers":[{"lightness":20}]}]
+  disableDefaultUI  : true
 
 opts_map_night =
+  zoom              : zoom
+  center            : center
+  mapTypeId         : google.maps.MapTypeId.ROADMAP
+  scrollwheel       : scrollwheel
+  draggable         : false
+  styles            : [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}]
+  panControl        : false
+  streetViewControl : false
+  mapTypeControl    : false
+  disableDefaultUI  : true
+  # zoomControlOptions  :
+  #   position: google.maps.ControlPosition.LEFT_CENTER
+  # zoomControl: boolean,
+  # scaleControl: boolean,
+  # overviewMapControl: boolean
+
+opts_map_control =
   zoom                : zoom
   center              : center
   mapTypeId           : google.maps.MapTypeId.ROADMAP
   scrollwheel         : scrollwheel
-  styles              : [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}]
   panControl          : false
   streetViewControl   : false
   mapTypeControl      : false
   zoomControlOptions  :
     position: google.maps.ControlPosition.LEFT_CENTER
-  # zoomControl: boolean,
-  # scaleControl: boolean,
-  # overviewMapControl: boolean      
 
-map_day   = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
-map_night = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
+map_day     = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
+map_night   = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
+map_control = new google.maps.Map($('.map-control')[0], opts_map_control)
+
+map_array   = [map_day,map_night]
 
 make_heatmap = (trip_data, map, index) ->
   new_map = new google.maps.Map(map, opts_map_night)
+  map_array.push( new_map )
   directions_points_array = []
 
   $.each trip_data, ->
@@ -38,20 +58,29 @@ make_heatmap = (trip_data, map, index) ->
 
   point_array = new google.maps.MVCArray( directions_points_array )
   heatmap = new google.maps.visualization.HeatmapLayer(data: point_array)
-  heatmap.set('radius', 7)
+  heatmap.set('radius', 8)
+  
+  index = parseInt(index, 10)
+  if index > 6 and index < 18
+    heatmap.set('gradient', gradient_array_2)
+  else
+    heatmap.set('gradient', gradient_array_1)
+
   heatmap.setMap new_map
 
   if index is 23
     google.maps.event.addListener map, 'tilesloaded', ->
-      console.log 'done!!!'    
+      console.log 'done!!!'
 
-google.maps.event.addListener map_night, 'tilesloaded', ->
+google.maps.event.addListener map_control, 'tilesloaded', ->
 
-  google.maps.event.addListener map_night, 'center_changed', ->
-    map_day.panTo map_night.getCenter()
+  google.maps.event.addListener map_control, 'center_changed', ->
+    $.each map_array, ->
+      this.panTo map_control.getCenter()
 
-  google.maps.event.addListener map_night, 'zoom_changed', ->
-    map_day.setZoom map_night.getZoom()
+  google.maps.event.addListener map_control, 'zoom_changed', ->
+    $.each map_array, ->
+      this.setZoom map_control.getZoom()
 
   # $.each station_data, ->
   #   station_lat_lng = new google.maps.LatLng(this.lat,this.lng)
@@ -61,6 +90,24 @@ google.maps.event.addListener map_night, 'tilesloaded', ->
   #     title: this['name']
   #   )
 
+$ ->
+  gradient_1 = new Rainbow()
+  gradient_1.setSpectrum('#00FF00', '#FFFF00', '#FF0000')
+  gradient_1.setNumberRange(0,12)
+
+  i = 0
+  while i < 12
+    gradient_array_1.push( '#' + gradient_1.colourAt(i) )
+    i++
+
+  gradient_2 = new Rainbow()
+  gradient_2.setSpectrum('blue', 'yellow', 'red')
+  gradient_2.setNumberRange(0,12)
+
+  i = 0
+  while i < 12
+    gradient_array_2.push( '#' + gradient_2.colourAt(i) )
+    i++
 
 $(window).load ->
   $.getScript 'static-data.js', ->
@@ -104,9 +151,10 @@ $(window).load ->
     $('.map-slider').slider
       create : ->
         $(this).slider 'value', current_hour * ratio
+        $('.heatmap').eq(current_hour).addClass('current-heatmap')
         adjust_map_display( current_hour * ratio )
       slide  : ( event, ui ) ->
-        current_hour = parseInt(ui.value / 100 * 24, 10)
+        current_hour    = parseInt(ui.value / 100 * 24, 10)
         current_section = window.chart_points[ current_hour ]
 
         $('.chart-point').css

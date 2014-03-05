@@ -16,5 +16,6 @@
 //= require raphael-min
 //= require g.raphael-min
 //= require g.line-min
+//= require rainbowvis
 //= require chart
 //= require map

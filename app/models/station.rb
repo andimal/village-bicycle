@@ -29,7 +29,7 @@ class Station < ActiveRecord::Base
 
   def self.write_static_data
     out_file = File.new("app/assets/javascripts/static-data/station-data.js", "w")
-    stations = Station.from_trips_asc
+    stations = Station.from_trips_desc
 
     out_text = "var station_data = ["
     stations.each do |station|

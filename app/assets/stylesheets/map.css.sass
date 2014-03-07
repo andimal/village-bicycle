@@ -18,7 +18,8 @@
   // -webkit-transition: all 0.25s ease-in-out
   // transition: all 0.25s ease-in-out
 
-.heatmap
+.heatmap,
+.map-markers
   .gm-style
     > div:first-child
       > div
@@ -34,3 +35,39 @@
 
 .current-heatmap
   opacity: 1
+
+.marker-popover
+  position: relative
+  top: 100px
+  width: 200px
+  z-index: 9999
+  background: $blue
+  padding-bottom: 4px
+  color: white
+  text-align: center
+
+  &:before
+    content: ""
+    position: absolute
+    top: -12px
+    left: 50%
+    width: 0px
+    height: 0px
+    margin-left: -10px
+    border-style: solid
+    border-width: 0 10px 12px 10px
+    border-color: transparent transparent $blue transparent
+
+  h1
+    margin: 0
+    padding: 7px
+    font-size: 16px
+
+  h2
+    margin: 0
+    font-size: 16px
+
+  .content
+    margin: 0 4px
+    background: #343434
+    padding: 20px

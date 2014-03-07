@@ -1,3 +1,12 @@
+GIT
+  remote: git://github.com/kohactive/manhattan.git
+  revision: 09405bb0f5b5f4f822329caa88087514d395f577
+  specs:
+    manhattan (0.3.1)
+      bourbon (>= 2.1)
+      neat (>= 1.4.0)
+      sass (>= 3.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -29,6 +38,9 @@ GEM
     atomic (1.1.14)
     bootstrap-sass (3.1.1.0)
       sass (~> 3.2)
+    bourbon (3.1.8)
+      sass (>= 3.2.0)
+      thor
     builder (3.1.4)
     chronic (0.10.2)
     coffee-rails (4.0.1)
@@ -65,6 +77,9 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.4)
     mysql2 (0.3.15)
+    neat (1.5.0)
+      bourbon (>= 2.1)
+      sass (>= 3.2)
     pg (0.17.1)
     polyglot (0.3.3)
     rack (1.5.2)
@@ -131,6 +146,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
+  manhattan!
   mysql2
   pg
   rails (= 4.0.2)

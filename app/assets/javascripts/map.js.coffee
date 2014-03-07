@@ -1,3 +1,9 @@
+mouse_x = 0
+mouse_y = 0
+$(document).mousemove (e) ->
+  mouse_x = e.pageX
+  mouse_y = e.pageY
+
 zoom              = 12
 center            = new google.maps.LatLng(41.886407,-87.6576544)
 scrollwheel       = false
@@ -43,9 +49,10 @@ opts_map_control =
 
 map_day     = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
 map_night   = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
+map_markers = new google.maps.Map($('.map-markers')[0], opts_map_day)
 map_control = new google.maps.Map($('.map-control')[0], opts_map_control)
 
-map_array   = [map_day,map_night]
+map_array   = [map_day,map_night,map_markers]
 
 make_heatmap = (trip_data, map, index) ->
   new_map = new google.maps.Map(map, opts_map_night)
@@ -82,13 +89,42 @@ google.maps.event.addListener map_control, 'tilesloaded', ->
     $.each map_array, ->
       this.setZoom map_control.getZoom()
 
-  # $.each station_data, ->
-  #   station_lat_lng = new google.maps.LatLng(this.lat,this.lng)
-  #   new google.maps.Marker(
-  #     position: station_lat_lng
-  #     map: map_night
-  #     title: this['name']
-  #   )
+  $.each station_data,(i) ->
+    station_lat_lng = new google.maps.LatLng(this.lat,this.lng)
+    
+    if i < 11
+      pin_icon = new google.maps.MarkerImage(
+        "images/top-marker.svg"
+        null
+        null
+        null
+        new google.maps.Size(24, 33)
+      )
+    else
+      pin_icon = new google.maps.MarkerImage(
+        "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+        null
+        null
+        null
+        new google.maps.Size(16, 16)
+      )
+
+    marker = new google.maps.Marker(
+      position  : station_lat_lng
+      map       : map_markers
+      title     : this['name']
+      icon      : pin_icon
+    )
+
+    $cloned_popover = ''
+    google.maps.event.addListener marker, 'mouseover', (e) ->
+      $cloned_popover = $('#marker-popover-template').clone().appendTo('body')
+      $cloned_popover.css
+        'top' : mouse_x
+        'left' : mouse_y
+
+    google.maps.event.addListener marker, 'mouseout', ->
+      $cloned_popover.remove()
 
 $ ->
   gradient_1 = new Rainbow()
@@ -185,7 +221,7 @@ $(window).load ->
       if i < 10
         i = "0#{i}"
 
-      make_heatmap( window["trip_data_#{i}"], $('.map-' + i)[0], i )
+      # make_heatmap( window["trip_data_#{i}"], $('.map-' + i)[0], i )
 
       i++
 

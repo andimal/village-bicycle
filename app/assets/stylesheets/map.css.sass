@@ -39,24 +39,26 @@
 .marker-popover
   position: relative
   width: 300px
-  margin-top: 12px
+  margin-bottom: 10px
   z-index: 9999
   background: $blue
   padding-bottom: 4px
   color: white
   text-align: center
+  box-shadow: 0 0 5px #333
 
   &:before
-    content: ""
+    @extend .fa
+    content: "\f0d7"
     position: absolute
-    top: -12px
-    left: 50%
-    width: 0px
-    height: 0px
-    margin-left: -10px
-    border-style: solid
-    border-width: 0 10px 12px 10px
-    border-color: transparent transparent $blue transparent
+    height: 18px
+    bottom: -16px
+    left: 27%
+    color: $blue
+    font-size: 30px
+    line-height: 9px
+    text-shadow: 0 0 5px #333
+    overflow: hidden
 
   h1
     margin: 0

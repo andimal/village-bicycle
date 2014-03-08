@@ -2,6 +2,7 @@
   .nav-actions
     .divvy-logo.icon d
     .map-slider{data: {hour: @current_hour}}
+    %span.nav-time= "#{@current_hour}:00"
 
 %section.map-container
   #map-day.map.map-day
@@ -12,8 +13,8 @@
       - hour = "0#{hour}"
     .map.heatmap{id: "map-#{hour}", class: "map-#{hour}"}
 
-  .map-control.map
   .map-markers.map
+  .map-control.map
 
   .chart
     .chart-point

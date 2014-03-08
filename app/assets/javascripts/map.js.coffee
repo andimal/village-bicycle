@@ -3,6 +3,8 @@ center            = new google.maps.LatLng(41.886407,-87.6576544)
 scrollwheel       = false
 gradient_array_1  = ['rgba(0,255,0,0)']
 gradient_array_2  = ['rgba(0,0,255,0)']
+current_hour      = ""
+nav_handle_timer  = ""
 
 opts_map_day =
   zoom              : zoom
@@ -30,6 +32,17 @@ opts_map_night =
   # scaleControl: boolean,
   # overviewMapControl: boolean
 
+opts_map_markers =
+  zoom              : zoom
+  center            : center
+  mapTypeId         : google.maps.MapTypeId.ROADMAP
+  scrollwheel       : scrollwheel
+  styles            : [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#000000"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#000000"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#000000"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#000000"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#000000"},{"lightness":17},{"weight":1.2}]}]
+  panControl        : false
+  streetViewControl : false
+  mapTypeControl    : false
+  disableDefaultUI  : true
+
 opts_map_control =
   zoom                : zoom
   center              : center
@@ -38,12 +51,13 @@ opts_map_control =
   panControl          : false
   streetViewControl   : false
   mapTypeControl      : false
+  draggable           : false
   zoomControlOptions  :
     position: google.maps.ControlPosition.LEFT_CENTER
 
 map_day        = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
 map_night      = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
-map_markers    = new google.maps.Map($('.map-markers')[0], opts_map_day)
+map_markers    = new google.maps.Map($('.map-markers')[0], opts_map_markers)
 map_control    = new google.maps.Map($('.map-control')[0], opts_map_control)
 
 map_array      = [map_day,map_night,map_markers]
@@ -75,16 +89,32 @@ make_heatmap = (trip_data, map, index) ->
       console.log 'done!!!'
 
 google.maps.event.addListener map_control, 'tilesloaded', ->
-
-  google.maps.event.addListener map_control, 'center_changed', ->
-    $.each map_array, ->
-      this.panTo map_control.getCenter()
+  $('.map-control').css
+    width : 35
 
   google.maps.event.addListener map_control, 'zoom_changed', ->
     $.each map_array, ->
       this.setZoom map_control.getZoom()
 
+google.maps.event.addListener map_markers, 'tilesloaded', ->
+  google.maps.event.addListener map_markers, 'center_changed', ->
+    $.each map_array, ->
+      this.panTo map_markers.getCenter()
+
+$nav_time = ""
+position_nav_time = (handle) ->
+  $nav_time
+    .text "#{current_hour}:00"
+    .position
+      my: "center top"
+      at: "center bottom"
+      of: handle
+      offset: "0, 10"
+    .show()
+
 $ ->
+  $nav_time = $('.nav-time')
+
   gradient_1 = new Rainbow()
   gradient_1.setSpectrum('#00FF00', '#FFFF00', '#FF0000')
   gradient_1.setNumberRange(0,12)
@@ -143,13 +173,21 @@ $(window).load ->
           opacity : 1
 
     $('.map-slider').slider
-      create : ->
+      create : ( event, ui) ->
         $(this).slider 'value', current_hour * ratio
         $('.heatmap').eq(current_hour).addClass('current-heatmap')
         adjust_map_display( current_hour * ratio )
+        
+        position_nav_time( $(event.target).find('a')[0] )
+
       slide  : ( event, ui ) ->
-        current_hour    = parseInt(ui.value / 100 * 24, 10)
+        current_hour    = parseInt(ui.value / 100 * 23, 10)
         current_section = window.chart_points[ current_hour ]
+
+        clearTimeout( nav_handle_timer )
+        nav_handle_timer = setTimeout(->
+          position_nav_time( ui.handle )
+        , 5)
 
         $('.chart-point').css
           top: current_section.y - ( $('.chart-point').outerHeight() / 2 )
@@ -206,13 +244,12 @@ $(window).load ->
       marker = new google.maps.Marker(
         position  : station_lat_lng
         map       : map_markers
-        title     : this['name']
         icon      : pin_icon
       )
 
       popover_template = '' +
         '<div class="marker-popover"">' +
-          "<h1>#{i}. #{this.name}</h1>" +
+          "<h1>#{i + 1}. #{this.name}</h1>" +
           '<div class="content">' +
             "<h2 class=\"marker-popover-trip-count\">Trips from: #{this.from_trips_count}</h2>" +
             "<h2 class=\"marker-popover-capacity\">Capacity: #{this.capacity}</h2>" +
@@ -221,7 +258,8 @@ $(window).load ->
 
       info_bubble = new InfoBubble({
         content: popover_template,
-        position: new google.maps.LatLng(marker.position.d - 0.032, marker.position.e - 0.021),
+        # position: new google.maps.LatLng(marker.position.d - 0.032, marker.position.e - 0.021),
+        # position: new google.maps.LatLng(marker.position.d, marker.position.e),
         shadowStyle: 0,
         padding: 0,
         backgroundColor: 'transparent',
@@ -237,7 +275,7 @@ $(window).load ->
       google.maps.event.addListener marker, 'mouseover', ->
         $.each captions_array, ->
           this.close()
-        info_bubble.open(map_markers)
+        info_bubble.open(map_markers, marker)
         captions_array.push(info_bubble)
 
       google.maps.event.addListener marker, 'mouseout', ->

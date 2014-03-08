@@ -1,9 +1,3 @@
-mouse_x = 0
-mouse_y = 0
-$(document).mousemove (e) ->
-  mouse_x = e.pageX
-  mouse_y = e.pageY
-
 zoom              = 12
 center            = new google.maps.LatLng(41.886407,-87.6576544)
 scrollwheel       = false
@@ -47,12 +41,13 @@ opts_map_control =
   zoomControlOptions  :
     position: google.maps.ControlPosition.LEFT_CENTER
 
-map_day     = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
-map_night   = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
-map_markers = new google.maps.Map($('.map-markers')[0], opts_map_day)
-map_control = new google.maps.Map($('.map-control')[0], opts_map_control)
+map_day        = new google.maps.Map(document.getElementById('map-day'), opts_map_day)
+map_night      = new google.maps.Map(document.getElementById('map-night'), opts_map_night)
+map_markers    = new google.maps.Map($('.map-markers')[0], opts_map_day)
+map_control    = new google.maps.Map($('.map-control')[0], opts_map_control)
 
-map_array   = [map_day,map_night,map_markers]
+map_array      = [map_day,map_night,map_markers]
+captions_array = []
 
 make_heatmap = (trip_data, map, index) ->
   new_map = new google.maps.Map(map, opts_map_night)
@@ -88,43 +83,6 @@ google.maps.event.addListener map_control, 'tilesloaded', ->
   google.maps.event.addListener map_control, 'zoom_changed', ->
     $.each map_array, ->
       this.setZoom map_control.getZoom()
-
-  $.each station_data,(i) ->
-    station_lat_lng = new google.maps.LatLng(this.lat,this.lng)
-    
-    if i < 11
-      pin_icon = new google.maps.MarkerImage(
-        "images/top-marker.svg"
-        null
-        null
-        null
-        new google.maps.Size(24, 33)
-      )
-    else
-      pin_icon = new google.maps.MarkerImage(
-        "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-        null
-        null
-        null
-        new google.maps.Size(16, 16)
-      )
-
-    marker = new google.maps.Marker(
-      position  : station_lat_lng
-      map       : map_markers
-      title     : this['name']
-      icon      : pin_icon
-    )
-
-    $cloned_popover = ''
-    google.maps.event.addListener marker, 'mouseover', (e) ->
-      $cloned_popover = $('#marker-popover-template').clone().appendTo('body')
-      $cloned_popover.css
-        'top' : mouse_x
-        'left' : mouse_y
-
-    google.maps.event.addListener marker, 'mouseout', ->
-      $cloned_popover.remove()
 
 $ ->
   gradient_1 = new Rainbow()
@@ -225,3 +183,62 @@ $(window).load ->
 
       i++
 
+    $.each station_data,(i) ->
+      station_lat_lng = new google.maps.LatLng(this.lat,this.lng)
+      
+      if i < 10
+        pin_icon = new google.maps.MarkerImage(
+          "images/top-marker.svg"
+          null
+          null
+          null
+          new google.maps.Size(24, 33)
+        )
+      else
+        pin_icon = new google.maps.MarkerImage(
+          "http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+          null
+          null
+          null
+          new google.maps.Size(16, 16)
+        )
+
+      marker = new google.maps.Marker(
+        position  : station_lat_lng
+        map       : map_markers
+        title     : this['name']
+        icon      : pin_icon
+      )
+
+      popover_template = '' +
+        '<div class="marker-popover"">' +
+          "<h1>#{i}. #{this.name}</h1>" +
+          '<div class="content">' +
+            "<h2 class=\"marker-popover-trip-count\">Trips from: #{this.from_trips_count}</h2>" +
+            "<h2 class=\"marker-popover-capacity\">Capacity: #{this.capacity}</h2>" +
+          '</div>' +
+        '</div>'
+
+      info_bubble = new InfoBubble({
+        content: popover_template,
+        position: new google.maps.LatLng(marker.position.d - 0.032, marker.position.e - 0.021),
+        shadowStyle: 0,
+        padding: 0,
+        backgroundColor: 'transparent',
+        borderRadius: 0,
+        arrowSize: 0,
+        borderWidth: 0,
+        disableAutoPan: true,
+        hideCloseButton: true,
+        arrowPosition: 30,
+        arrowStyle: 2
+      })
+
+      google.maps.event.addListener marker, 'mouseover', ->
+        $.each captions_array, ->
+          this.close()
+        info_bubble.open(map_markers)
+        captions_array.push(info_bubble)
+
+      google.maps.event.addListener marker, 'mouseout', ->
+        info_bubble.close()

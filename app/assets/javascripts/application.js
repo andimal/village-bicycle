@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require infobubble
 //= require raphael-min
 //= require g.raphael-min
 //= require g.line-min

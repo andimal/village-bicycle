@@ -24,3 +24,37 @@
       %h4.content
         xx
         %span hours
+
+.about-container
+  .about
+    .container
+      %p
+        Chicago's wonderful bike sharing program,
+        = link_to "Divvy Bikes", "http://divvybikes.com", target: "_blank"
+        , released a load of their data for the
+        = link_to "Divvy Data Challenge", "http://divvybikes.com/datachallenge", target: "_blank"
+        \. We took that data and came up with a way to visualize and interact with Divvy users' habits.
+      
+      %p The heatmaps are generated from the paths of about 15k trip records. Also, there's no trip data from 1-5am? Not really sure what the deal with that is.
+      
+      %p
+        The code is available at
+        = link_to "GitHub", "https://github.com/andimal/village-bicycle", target: "_blank"
+        if you'd like to take a gander!
+
+  .homies
+    .container
+      %h1 Contributors
+      .avatars
+        .homie.col-md-3
+          = link_to (image_tag "andy.jpeg"), "http://twitter.com/and1mal", target: "_blank"
+          %h2 Andy
+        .homie.col-md-3
+          = link_to (image_tag "ian.png"), "http://twitter.com/mybeardisred", target: "_blank"
+          %h2 Ian
+        .homie.col-md-3
+          = link_to (image_tag "larry.jpeg"), "http://twitter.com/lrdiv", target: "_blank"
+          %h2 Lawrence
+        .homie.col-md-3
+          = link_to (image_tag "justin.png"), "http://twitter.com/j_mcnally", target: "_blank"
+          %h2 Justin

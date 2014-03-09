@@ -1,0 +1,77 @@
+.about-container
+  margin-top: 516px
+  color: white
+
+.about,
+.homies
+  padding: 80px 0
+
+.about
+  background-color: darken($blue, 20%)
+
+  p
+    font-size: 25px
+    margin: 0 0 25px
+
+  a
+    +transition
+    text-decoration: underline
+    color: lighten($blue, 25%)
+
+    &:hover
+      background: darken($blue, 30%)
+
+.homies
+  background-color: $blue
+  text-align: center
+
+  h1,
+  h2,
+  p
+    margin-bottom: 0
+    text-shadow: 1px 1px 1px #666
+
+  h1
+    margin: 0 0 40px
+    padding-bottom: 20px
+    border-bottom: 4px solid rgba(white, 0.2)
+
+  .avatars
+    padding: 0 140px
+
+  .homie
+    padding: 0 20px
+
+    h2
+      font-size: 20px
+
+    a
+      position: relative
+      display: block
+      border: 4px solid rgba(white, 0.3)
+      border-radius: 100px
+      overflow: hidden
+      box-shadow: 1px 1px 1px rgba(#333, 0.4)
+
+      &:after
+        @extend .fa
+        content: "\f099"
+        position: absolute
+        top: 0
+        left: 0
+        width: 100%
+        height: 100%
+        border-radius: 100px
+        background-color: rgba(gray, 0.8)
+        color: white
+        font-size: 30px
+        text-shadow: 1px 1px 0 #666
+        line-height: 104px
+        opacity: 0
+        +transition
+
+      &:hover:after
+        opacity: 1
+
+    img
+      width: 100%

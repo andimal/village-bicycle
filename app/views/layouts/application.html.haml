@@ -4,6 +4,10 @@
     %title Divvy
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
     = csrf_meta_tags
+    = javascript_include_tag "application"
+    = javascript_include_tag "//use.typekit.net/yvl2lnp.js"
+    :javascript
+      try{Typekit.load();}catch(e){}
   %body
     = javascript_include_tag "https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=visualization,geometry"
     

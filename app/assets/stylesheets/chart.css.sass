@@ -29,8 +29,23 @@
   position: absolute
   z-index: 3
   width: auto
-  padding: 10px
+  min-width: 180px
+
+  .marker-popover-pointer
+    left: 50%
+    margin-left: -8px
 
   &:before
     left: 50%
     margin-left: -10px
+
+  .content
+    width: auto
+    padding: 30px
+    text-align: center
+
+    span
+      display: block
+      padding-top: 5px
+      color: #999
+      font-size: 0.8em

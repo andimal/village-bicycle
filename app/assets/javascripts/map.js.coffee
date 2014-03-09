@@ -142,7 +142,7 @@ $(window).load ->
 
     $map_night_inner    = $('#map-night .gm-style div').first()
     sunrise             = 7
-    sunset              = 18
+    sunset              = 19
     transition_duration = 1
     ratio               = 100 / 24
     current_map         = 'night'
@@ -196,11 +196,26 @@ $(window).load ->
           top: current_section.y - ( $('.chart-point').outerHeight() / 2 )
           left: current_section.x - ( $('.chart-point').outerWidth() / 2 )
 
+        caption_left = current_section.x - ( $('.chart-caption').outerWidth() / 2 )
+        caption_right = caption_left + $('.chart-caption').outerWidth()
+        if caption_left < 0
+          caption_left = 0
+          $('.chart-caption .marker-popover-pointer').css
+            right: 'auto'
+            left : parseInt( $('.chart-point').css('left'), 10 )
+        else if caption_right > $(window).outerWidth()
+          caption_left = $(window).outerWidth() - $('.chart-caption').outerWidth()
+          $('.chart-caption .marker-popover-pointer').css
+            right: ( $(window).outerWidth() - parseInt( $('.chart-point').css('left'), 10 ) ) - 12
+            left : 'auto'
+        else
+          $('.chart-caption .marker-popover-pointer').removeAttr('style')
+
         $('.chart-caption')
           .css
             top: current_section.y - $('.chart-caption').outerHeight() - 20
-            left: current_section.x - ( $('.chart-caption').outerWidth() / 2 )
-          .find('h4').text("#{number_with_commas(current_section.value)} hours ridden")
+            left: caption_left
+          .find('h4').html("#{number_with_commas(current_section.value)} <span>hours</span>")
 
         if !$('.show-chart').length
           $('.chart').addClass('show-chart')
@@ -252,6 +267,7 @@ $(window).load ->
 
       popover_template = '' +
         '<div class="marker-popover"">' +
+          '<div class="marker-popover-pointer"></div>' +
           "<h1>#{i + 1}. #{this.name}</h1>" +
           '<table class="content">' +
             '<tr>' +

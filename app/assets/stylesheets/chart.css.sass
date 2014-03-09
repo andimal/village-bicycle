@@ -18,14 +18,19 @@
 .chart-point
   position: absolute
   z-index: 3
-  width: 20px
-  height: 20px
+  width: 10px
+  height: 10px
   border-radius: 20px
+  border: 1px solid darken($blue, 20%)
   background: darken($blue, 10%)
+  box-shadow: 0 0 10px #666
 
 .chart-caption
   position: absolute
   z-index: 3
-  background: white
-  border-radius: 4px
-  padding: 20px
+  width: auto
+  padding: 10px
+
+  &:before
+    left: 50%
+    margin-left: -10px

@@ -133,6 +133,9 @@ $ ->
     gradient_array_2.push( '#' + gradient_2.colourAt(i) )
     i++
 
+number_with_commas = (x) ->
+  return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+
 $(window).load ->
   $.getScript 'static-data.js', ->
     window.make_chart()
@@ -195,9 +198,9 @@ $(window).load ->
 
         $('.chart-caption')
           .css
-            top: current_section.y - $('.chart-caption').outerHeight() - 40
+            top: current_section.y - $('.chart-caption').outerHeight() - 20
             left: current_section.x - ( $('.chart-caption').outerWidth() / 2 )
-          .find('h4').text("#{current_section.value} hours")
+          .find('h4').text("#{number_with_commas(current_section.value)} hours ridden")
 
         if !$('.show-chart').length
           $('.chart').addClass('show-chart')
@@ -253,7 +256,7 @@ $(window).load ->
           '<table class="content">' +
             '<tr>' +
               "<td><h2 class=\"marker-popover-trip-count\">Trips from:</h2></td>" +
-              "<td><h2>#{this.from_trips_count}</h2></td>" +
+              "<td><h2>#{number_with_commas(this.from_trips_count)}</h2></td>" +
               "<td class=\"icon marker-popover-bikes-container\">" +
                 "<div class=\"marker-popover-bikes-total\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div>" +
                 "<div class=\"marker-popover-bikes-value-mask\" style=\"width: #{ (this.from_trips_count / 17272) * 100 }%\"><div class=\"marker-popover-bikes-value\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div></div>" +
@@ -261,7 +264,7 @@ $(window).load ->
             '</tr>' +
             '<tr>' +
               "<td><h2 class=\"marker-popover-capacity\">Capacity:</h2></td>" +
-              "<td><h2>#{this.capacity}</h2></td>" +
+              "<td><h2>#{number_with_commas(this.capacity)}</h2></td>" +
               "<td class=\"icon marker-popover-bikes-container\">" +
                 "<div class=\"marker-popover-bikes-total\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div>" +
                 "<div class=\"marker-popover-bikes-value-mask\" style=\"width: #{ (this.capacity / 47) * 100 }%\"><div class=\"marker-popover-bikes-value\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div></div>" +

@@ -250,10 +250,24 @@ $(window).load ->
       popover_template = '' +
         '<div class="marker-popover"">' +
           "<h1>#{i + 1}. #{this.name}</h1>" +
-          '<div class="content">' +
-            "<h2 class=\"marker-popover-trip-count\">Trips from: #{this.from_trips_count}</h2>" +
-            "<h2 class=\"marker-popover-capacity\">Capacity: #{this.capacity}</h2>" +
-          '</div>' +
+          '<table class="content">' +
+            '<tr>' +
+              "<td><h2 class=\"marker-popover-trip-count\">Trips from:</h2></td>" +
+              "<td><h2>#{this.from_trips_count}</h2></td>" +
+              "<td class=\"icon marker-popover-bikes-container\">" +
+                "<div class=\"marker-popover-bikes-total\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div>" +
+                "<div class=\"marker-popover-bikes-value-mask\" style=\"width: #{ (this.from_trips_count / 17272) * 100 }%\"><div class=\"marker-popover-bikes-value\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div></div>" +
+              "</td>" +
+            '</tr>' +
+            '<tr>' +
+              "<td><h2 class=\"marker-popover-capacity\">Capacity:</h2></td>" +
+              "<td><h2>#{this.capacity}</h2></td>" +
+              "<td class=\"icon marker-popover-bikes-container\">" +
+                "<div class=\"marker-popover-bikes-total\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div>" +
+                "<div class=\"marker-popover-bikes-value-mask\" style=\"width: #{ (this.capacity / 47) * 100 }%\"><div class=\"marker-popover-bikes-value\"><span>b</span><span>b</span><span>b</span><span>b</span><span>b</span></div></div>" +
+              "</td>" +
+            '</tr>' +
+          '</table>' +
         '</div>'
 
       info_bubble = new InfoBubble({

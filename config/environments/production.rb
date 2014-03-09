@@ -77,4 +77,6 @@ Divvy::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+
+  config.is_production = true
 end

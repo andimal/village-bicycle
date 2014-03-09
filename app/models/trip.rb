@@ -70,7 +70,7 @@ class Trip < ActiveRecord::Base
         trip_duration += trip.trip_duration
       end
 
-      out_text = "#{out_text}#{trip_duration / 60},"
+      out_text = "#{out_text}#{( trip_duration / 60 ) / 60},"
 
     end
 

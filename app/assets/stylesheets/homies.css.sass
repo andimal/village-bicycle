@@ -1,5 +1,5 @@
 .about-container
-  margin-top: 516px
+  display: none
   color: white
 
 .about,
@@ -12,6 +12,9 @@
   p
     font-size: 25px
     margin: 0 0 25px
+
+    &:last-child
+      margin: 0
 
   a
     +transition
@@ -36,11 +39,14 @@
     padding-bottom: 20px
     border-bottom: 4px solid rgba(white, 0.2)
 
-  .avatars
-    padding: 0 140px
-
   .homie
+    width: 149px
+    display: inline-block
+    margin-right: 2.36%
     padding: 0 20px
+
+    &:last-of-type
+      margin-right: 0
 
     h2
       font-size: 20px

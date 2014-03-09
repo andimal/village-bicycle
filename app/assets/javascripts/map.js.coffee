@@ -112,6 +112,14 @@ position_nav_time = (handle) ->
       offset: "0, 10"
     .show()
 
+position_content = ->
+  $('.map-container').outerHeight( $(window).outerHeight() )
+
+  $('.about-container')
+    .css
+      'margin-top' : $(window).outerHeight() - $('nav').outerHeight() - 4
+    .show()
+
 $ ->
   $nav_time = $('.nav-time')
 
@@ -133,10 +141,18 @@ $ ->
     gradient_array_2.push( '#' + gradient_2.colourAt(i) )
     i++
 
+  $('.divvy-logo').click ->
+    $('html, body').animate scrollTop : $('.about-container').offset().top
+
 number_with_commas = (x) ->
   return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 
+$(window).resize ->
+  position_content()
+
 $(window).load ->
+  position_content()
+
   $.getScript 'static-data.js', ->
     window.make_chart()
 
@@ -235,7 +251,7 @@ $(window).load ->
       if i < 10
         i = "0#{i}"
 
-      # make_heatmap( window["trip_data_#{i}"], $('.map-' + i)[0], i )
+      make_heatmap( window["trip_data_#{i}"], $('.map-' + i)[0], i )
 
       i++
 

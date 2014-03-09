@@ -1,9 +1,14 @@
-$font-family-base   : "proxima-nova"
+$font-family-base   : "proxima-nova", helvetica, sans-serif
+$responsive         : false
 
 .group:after
   content: ""
   display: table
   clear: both
+
+body
+  position: relative
+  min-width: 768px
 
 @import "bootstrap"
 @import "manhattan"

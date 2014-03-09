@@ -21,12 +21,21 @@ nav
   margin: 0 auto
 
   .divvy-logo
+    +transition
     float: left
     width: 5%
+    border: 0
+    background: transparent
     color: white
     font-size: 20px
     padding-top: 5px
     text-shadow: 1px 1px 1px #666
+
+    &:hover
+      color: lighten($blue, 20%)
+
+    &:focus
+      outline: none
 
   .ui-widget-content
     float: left

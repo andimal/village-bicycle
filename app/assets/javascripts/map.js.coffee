@@ -92,14 +92,17 @@ google.maps.event.addListener map_control, 'tilesloaded', ->
   $('.map-control').css
     width : 35
 
-  google.maps.event.addListener map_control, 'zoom_changed', ->
-    $.each map_array, ->
-      this.setZoom map_control.getZoom()
+google.maps.event.addListener map_control, 'zoom_changed', ->
+  $.each map_array, ->
+    this.setZoom map_control.getZoom()
 
-google.maps.event.addListener map_markers, 'tilesloaded', ->
-  google.maps.event.addListener map_markers, 'center_changed', ->
-    $.each map_array, ->
-      this.panTo map_markers.getCenter()
+google.maps.event.addListener map_markers, 'center_changed', ->
+  $.each map_array, ->
+    this.panTo map_markers.getCenter()
+
+google.maps.event.addListener map_markers, 'dragend', ->
+  $.each map_array, ->
+    this.panTo map_markers.getCenter()
 
 $nav_time = ""
 position_nav_time = (handle) ->

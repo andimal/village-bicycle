@@ -9,8 +9,7 @@ namespace :divvy do
     file = File.open("#{Rails.root}/lib/assets/csv/trips.csv")
     data = CSV.parse(file, headers: true)
 
-    # data.each do |row|
-    data.take(50).each do |row|
+    data.each do |row|
 
       if row[1].gsub(/\s+/m, ' ').strip.split(" ")[1].strip.split(":")[0].to_i < 10
         start_time_date = row[1].gsub(/\s+/m, ' ').strip.split(" ")[0]
